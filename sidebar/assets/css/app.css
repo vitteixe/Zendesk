@@ -1,10 +1,11 @@
-html,
 body {
   margin: 0;
-  padding: 0;
+  padding: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  /*overflow: hidden; */ /* IMPORTANTE */
 }
 
 #app {
-  padding: 12px;
-  box-sizing: border-box;
+  width: 100%;
 }

@@ -1,23 +1,25 @@
-(() => {
-  const client = ZAFClient.init();
+// inicializa o Zendesk App Framework
+const client = ZAFClient.init();
 
-  client.on('app.registered', async () => {
-    // 🔑 deixa o Zendesk decidir o tamanho
-    client.invoke('resize', { height: 'auto' });
+// função que ajusta a altura do iframe
+function resizeApp() {
+  const altura = document.body.scrollHeight;
 
-    const data = await client.get([
-      'ticket.id',
-      'ticket.requester.name',
-      'ticket.requester.email'
-    ]);
-
-    document.getElementById('ticket-id').textContent =
-      data['ticket.id'];
-
-    document.getElementById('ticket-name').textContent =
-      data['ticket.requester.name'];
-
-    document.getElementById('ticket-email').textContent =
-      data['ticket.requester.email'];
+  client.invoke("resize", {
+    width: "100%",
+    height: `${altura}px`
   });
-})();
+}
+
+// garante resize ao carregar
+resizeApp();
+
+// garante resize depois que o DOM terminar de renderizar
+window.addEventListener("load", () => {
+  resizeApp();
+});
+
+// garante resize mesmo se algo mudar depois
+setTimeout(() => {
+  resizeApp();
+}, 300);
