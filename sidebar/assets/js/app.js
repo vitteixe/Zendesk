@@ -1,25 +1,33 @@
 // inicializa o Zendesk App Framework
 const client = ZAFClient.init();
 
-// função que ajusta a altura do iframe
-function resizeApp() {
-  const altura = document.body.scrollHeight;
+// ===============================
+// PRE-CHAT (GAMBIARRA CONTROLADA)
+// ===============================
 
-  client.invoke("resize", {
-    width: "100%",
-    height: `${altura}px`
+client.get('ticket.comments')
+  .then(function (data) {
+    const comments = data['ticket.comments'];
+
+    // pega o bloco do pré-chat
+    const blocoPreChat = comments
+      .filter(c => c.value && c.value.includes('Chat started'))
+      .pop();
+
+    const container = document.getElementById('prechat');
+
+    if (!blocoPreChat) {
+      container.innerText = 'Pré-chat não encontrado';
+      resizeApp(); // função vem do resize.js
+      return;
+    }
+
+    // exibe o bloco inteiro
+    container.innerHTML = blocoPreChat.value;
+
+    // sempre que renderizar algo novo
+    resizeApp();
+  })
+  .catch(function (error) {
+    console.error('Erro ao buscar comentários:', error);
   });
-}
-
-// garante resize ao carregar
-resizeApp();
-
-// garante resize depois que o DOM terminar de renderizar
-window.addEventListener("load", () => {
-  resizeApp();
-});
-
-// garante resize mesmo se algo mudar depois
-setTimeout(() => {
-  resizeApp();
-}, 300);
