@@ -9,3 +9,22 @@ body {
 #app {
   width: 100%;
 }
+
+#bu-search {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+#input-bu {
+    flex: 1;
+    padding: 6px;
+    font-size: 13px;
+}
+
+#btn-search {
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+
