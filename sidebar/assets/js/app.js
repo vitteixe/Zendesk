@@ -125,3 +125,53 @@ Promise.all([
 .catch(function (error) {
     console.error("Erro ao buscar dados do ticket:", error);
 });
+
+// ===============================
+//   RENDERIZA TABELA DE RECARGAS
+// ===============================
+function renderRechargeTable(data) {
+
+    if (!Array.isArray(data)) {
+        console.error("Dados de recarga inválidos:", data);
+        return;
+    }
+
+    const tbody = document.getElementById("rechargeTableBody");
+
+    if (!tbody) {
+        console.error("Elemento rechargeTableBody não encontrado");
+        return;
+    }
+
+    tbody.innerHTML = "";
+
+    data.forEach(function (item) {
+
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${item.created_at || "-"}</td>
+            <td>${item.pdv || "-"}</td>
+            <td>${item.serial || "-"}</td>
+            <td>${item.recharge_acronym || "-"}</td>
+            <td>${item.recharge_value || "-"}</td>
+            <td>${item.payment_type || "-"}</td>
+            <td>${item.payment_status || "-"}</td>
+            <td>${item.status || "-"}</td>
+        `;
+
+        tbody.appendChild(tr);
+    });
+
+    resizeApp();
+}
+
+// ===============================
+//   CALLBACK DA API DE RECARGAS
+// ===============================
+window.onRechargeDataLoaded = function (data) {
+    console.log("Recargas recebidas no app.js:", data);
+    renderRechargeTable(data);
+};
+
+
