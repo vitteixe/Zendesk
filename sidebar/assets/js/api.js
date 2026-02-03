@@ -1,8 +1,8 @@
 (function () {
 
-    function getRecharges() {
+    function getRecharges(bilhete) {
 
-        return fetch('https://api-dash-prd.rederecarga.app.br/api/recharges/1250369447')
+        return fetch('https://api-dash-prd.rederecarga.app.br/api/recharges/' + bilhete)
             .then(function (response) {
                 return response.json();
             })

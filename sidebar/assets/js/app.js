@@ -95,7 +95,16 @@ Promise.all([
         inputBU.value = userBU;
     }
 
-    console.log(userBU);
+    // ===============================
+    //   DISPARA API AUTOMATICAMENTE
+    // ===============================
+    if (
+        userBU &&
+        window.RechargeAPI &&
+        typeof RechargeAPI.getRecharges === 'function'
+    ) {
+        RechargeAPI.getRecharges(userBU);
+    }
 
     // Exibe apenas o conteúdo útil (formato final)
     container.innerText = `
@@ -111,15 +120,6 @@ Promise.all([
 
     // Ajusta altura do iframe após renderização
     resizeApp();
-
-    // ===============================
-    //        CHAMADA DA API
-    // ===============================
-    if (window.RechargeAPI && typeof RechargeAPI.getRecharges === 'function') {
-        RechargeAPI.getRecharges();
-    } else {
-        console.error('RechargeAPI não disponível');
-    }
 
 })
 .catch(function (error) {
@@ -174,4 +174,37 @@ window.onRechargeDataLoaded = function (data) {
     renderRechargeTable(data);
 };
 
+// ===============================
+//   CONSULTA MANUAL DE RECARGAS
+// ===============================
+(function () {
 
+    const inputBU = document.getElementById('input-bu');
+    const btnSearch = document.getElementById('btn-search');
+
+    if (!inputBU || !btnSearch) return;
+
+    btnSearch.addEventListener('click', function () {
+
+        const bilhete = inputBU.value.trim();
+
+        if (!bilhete) {
+            console.warn("Bilhete Único vazio");
+            return;
+        }
+
+        // limpa tabela antes da nova busca
+        const tbody = document.getElementById("rechargeTableBody");
+        if (tbody) {
+            tbody.innerHTML = "";
+        }
+
+        if (
+            window.RechargeAPI &&
+            typeof RechargeAPI.getRecharges === 'function'
+        ) {
+            RechargeAPI.getRecharges(bilhete);
+        }
+    });
+
+})();
