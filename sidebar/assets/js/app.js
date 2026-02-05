@@ -38,21 +38,72 @@ Promise.all([
 
     const dados = extrairDadosPreChat(conteudoFinal);
 
+
+
     /**
      * ===============================
      * PREENCHE UI
      * ===============================
      */
-    container.innerText = `
-        Nome do usuário: ${userName || "-"}
-        CPF: ${dados.cpf || "-"}
-        Email: ${dados.email || "-"}
-        Telefone: ${dados.telefone || "-"}
-        Bilhete Único: ${dados.bilhete || "-"}
+    
+    container.innerHTML = `
+        <div class="prechat-solicitacao-wrapper">
+            <div class="prechat-solicitacao">
+                ${dados.solicitacao || "-"}
+            </div>
+        </div>
 
-        Solicitação: ${dados.solicitacao || "-"}
-        Local da Recarga: ${dados.local || "-"}
-    `.trim();
+        <div class="prechat-card-wrapper">
+
+            <span class="prechat-title">INFORMAÇÕES</span>
+
+            <div class="prechat-card">
+                <div class="prechat-grid">
+
+                    <div class="prechat-col">
+                        <div>
+                            <span class="label">Nome</span>
+                            <span class="value">${userName || "-"}</span>
+                        </div>
+
+                        <div>
+                            <span class="label">CPF</span>
+                            <span class="value">${dados.cpf || "-"}</span>
+                        </div>
+
+                        <div>
+                            <span class="label">Email</span>
+                            <span class="value">${dados.email || "-"}</span>
+                        </div>
+
+                        <div>
+                            <span class="label">Telefone</span>
+                            <span class="value">${dados.telefone || "-"}</span>
+                        </div>
+                    </div>
+
+                    <div class="prechat-col">
+                        <div>
+                            <span class="label">Bilhete Único</span>
+                            <span class="value highlight">${dados.bilhete || "-"}</span>
+                        </div>
+
+                        <div>
+                            <span class="label">Local da Recarga</span>
+                            <span class="value">${dados.local || "-"}</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+
+
+
 
     /**
      * ===============================
