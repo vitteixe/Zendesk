@@ -72,7 +72,6 @@
                     window.onRechargeDataLoaded(normalizedData);
                 }
 
-                console.log("API normalizada:", normalizedData);
 
                 return normalizedData;
             })

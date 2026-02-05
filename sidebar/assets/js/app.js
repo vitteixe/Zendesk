@@ -182,7 +182,6 @@ function renderRechargeTable(data) {
  * ===============================
  */
 window.onRechargeDataLoaded = function (data) {
-    console.log("Recargas recebidas:", data);
     renderRechargeTable(data);
 };
 
