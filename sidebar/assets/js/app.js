@@ -75,9 +75,10 @@ Promise.all([
 
 /**
  * ===============================
- * RENDERIZA TABELA DE RECARGAS
+ * RENDERIZAÇÃO DA API
  * ===============================
  */
+
 function renderRechargeTable(data) {
 
     const tbody = document.getElementById("rechargeTableBody");
@@ -91,13 +92,31 @@ function renderRechargeTable(data) {
 
         tr.innerHTML = `
             <td>${item.created_at || "-"}</td>
-            <td>${item.pdv || "-"}</td>
+
+            <td class="pdv-cell" title="${item.pdv || "-"}">
+                ${item.pdv || "-"}
+            </td>
+
             <td>${item.serial || "-"}</td>
             <td>${item.recharge_acronym || "-"}</td>
             <td>${item.recharge_value || "-"}</td>
             <td>${item.payment_type || "-"}</td>
-            <td>${item.payment_status || "-"}</td>
-            <td>${item.status || "-"}</td>
+
+            <!-- PAYMENT STATUS -->
+            <td>
+                <span
+                    class="payment-status status-${(item.payment_status || "").toLowerCase()}"
+                    title="${item.payment_status || "-"}">
+                </span>
+            </td>
+
+            <!-- RECHARGE STATUS -->
+            <td>
+                <span
+                    class="recharge-status status-${(item.status || "").toLowerCase()}"
+                    title="${item.status || "-"}">
+                </span>
+            </td>
         `;
 
         tbody.appendChild(tr);
@@ -108,7 +127,7 @@ function renderRechargeTable(data) {
 
 /**
  * ===============================
- * CALLBACK DA API
+ * CALLBACK API
  * ===============================
  */
 window.onRechargeDataLoaded = function (data) {

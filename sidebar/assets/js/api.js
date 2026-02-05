@@ -23,7 +23,7 @@
         const minutes = String(date.getMinutes()).padStart(2, "0");
         const seconds = String(date.getSeconds()).padStart(2, "0");
 
-        return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+        return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
     }
 
     /**
@@ -44,7 +44,11 @@
                 created_at: formatDateBR(item.created_at),
                 recharge_value: item.recharge_value !== undefined && item.recharge_value !== null
                     ? (Number(item.recharge_value) / 100).toFixed(2).replace(".", ",")
-                    : "-"
+                    : "-",
+                payment_type:
+                    item.recharge_acronym === "VCL"
+                        ? "Lista"
+                        : (item.payment_type || "-")
             };
         });
     }
