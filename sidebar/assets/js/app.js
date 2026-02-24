@@ -148,15 +148,15 @@ function renderRechargeTable(data) {
                 ${item.pdv || "-"}
             </td>
 
-            <td>${item.serial || "-"}</td>
-            <td>${item.recharge_acronym || "-"}</td>
+            <td title="${item.serial_label}">${item.serial || "-"}</td>
+            <td title="${item.recharge_acronym_label}"> ${item.recharge_acronym || "-"}</td>
             <td>${item.recharge_value || "-"}</td>
             <td>${item.payment_type || "-"}</td>
 
             <!-- PAYMENT STATUS -->
             <td>
                 <span
-                    class="payment-status status-${(item.payment_status || "").toLowerCase()}"
+                    class="payment-status status-${item.payment_status_normalized}"
                     title="${item.payment_status || "-"}">
                 </span>
             </td>
@@ -164,7 +164,7 @@ function renderRechargeTable(data) {
             <!-- RECHARGE STATUS -->
             <td>
                 <span
-                    class="recharge-status status-${(item.status || "").toLowerCase()}"
+                    class="recharge-status status-${item.status_normalized}"
                     title="${item.status || "-"}">
                 </span>
             </td>
