@@ -269,6 +269,8 @@
 
                 const normalizedData = normalizeRecharges(data);
 
+                console.log("RETORNO NORMALIZADO:", normalizedData);
+
                 if (window.onRechargeDataLoaded) {
                     window.onRechargeDataLoaded(normalizedData);
                 }
